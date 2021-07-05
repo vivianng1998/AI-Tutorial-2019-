@@ -11,14 +11,11 @@ public class Wandering : MonoBehaviour
     private float maxSpeed = 50f;
     [SerializeField]
     private float forceMultiplier = 50f;
-    [SerializeField]
-    private float rotateSpeed = 5f;
+    [SerializeField, Tooltip("Time interval for new wander point randomizer")]
+    private float timeInterval = 5f;
     private float moveSpeed;
     private float delta;
     private bool newWanderDirection;
-
-    [SerializeField]
-    private float timeInterval = 5f;
 
     private Rigidbody rb;
     private Animator anim;
@@ -49,7 +46,7 @@ public class Wandering : MonoBehaviour
         newWanderDirection = true;
         moveSpeed = Random.Range(minSpeed, maxSpeed);
         delta = Random.Range(0, 360);
-        Debug.Log("speed " + moveSpeed + " delta " + delta);
+        //Debug.Log("speed " + moveSpeed + " delta " + delta);
         yield return new WaitForSeconds(time);
         newWanderDirection = false;
     }
@@ -57,7 +54,7 @@ public class Wandering : MonoBehaviour
     private void WalkForward()
     {
         float step = moveSpeed * Time.deltaTime;
-        rb.AddForce(transform.forward * step * forceMultiplier, ForceMode.Acceleration);
+        rb.AddForce(forceMultiplier * step * transform.forward, ForceMode.Acceleration);
         //rb.velocity = (arrivalPoint - transform.position).normalized * step;
         anim.SetBool("walk", true);
     }

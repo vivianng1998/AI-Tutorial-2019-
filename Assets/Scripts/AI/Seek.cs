@@ -28,11 +28,6 @@ public class Seek : MonoBehaviour
         GetPlayerPosition();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         if (player != null)
@@ -50,17 +45,16 @@ public class Seek : MonoBehaviour
     private void ChasePlayer()
     {
         float step = moveSpeed * Time.deltaTime;
-        //transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, step);
         //rb.AddForce(transform.forward * step * 10, ForceMode.Acceleration);
         rb.velocity = (playerTransform.position - transform.position).normalized * step;
         anim.SetBool("walk", true);
         
-        if (Vector3.Distance(transform.position, playerTransform.position) < 1f)
-        {
-            anim.SetBool("walk", false);
-            rb.velocity = Vector3.zero;
-            GetPlayerPosition();
-        }
+        //if (Vector3.Distance(transform.position, playerTransform.position) < 1f)
+        //{
+        //    anim.SetBool("walk", false);
+        //    rb.velocity = Vector3.zero;
+        //    GetPlayerPosition();
+        //}
     }
 
     private void RotateAI()

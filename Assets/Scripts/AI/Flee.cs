@@ -35,11 +35,6 @@ public class Flee : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         if (player != null)
@@ -54,8 +49,7 @@ public class Flee : MonoBehaviour
         GetPlayerPosition();
 
         center = transform.position;
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius, layerMask);
-        foreach (var hitCollider in hitColliders)
+        if (Physics.CheckSphere(center, radius, layerMask))
         {
             EscapePlayer();
         }
@@ -75,7 +69,7 @@ public class Flee : MonoBehaviour
     private void EscapePlayer()
     {
         float step = moveSpeed * Time.deltaTime;
-        rb.AddForce(transform.forward * step * forceMultiplier, ForceMode.Acceleration);
+        rb.AddForce(forceMultiplier * step * transform.forward, ForceMode.Acceleration);
         //rb.velocity = (playerTransform.position - transform.position).normalized * step;
         anim.SetBool("walk", true);
 
