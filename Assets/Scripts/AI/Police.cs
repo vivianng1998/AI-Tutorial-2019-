@@ -73,19 +73,6 @@ public class Police : MonoBehaviour
         anim.SetBool("walk", true);
     }
 
-    private void RotateAI()
-    {
-        if (!playerInRange)
-        {
-            transform.localRotation = Quaternion.Euler(0, delta, 0);
-        }
-        else
-        {
-            Vector3 direction = (playerTransform.position - transform.position).normalized;
-            rb.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-        }
-    }
-
     private IEnumerator ChangeDirection(float time)
     {
         newWanderDirection = true;
@@ -132,6 +119,19 @@ public class Police : MonoBehaviour
             {
                 playerInRange = false;
             }
+        }
+    }
+
+    private void RotateAI()
+    {
+        if (!playerInRange)
+        {
+            transform.localRotation = Quaternion.Euler(0, delta, 0);
+        }
+        else
+        {
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            rb.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         }
     }
 }
