@@ -26048,19 +26048,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.2973015
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.95478374
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -26068,7 +26068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -145.40901
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -32735,13 +32735,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ae358cc51738f4ba933b2f9e89b7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steeringForce: 100
-  minVelocity: 0.5
-  maxVelocity: 1
+  steeringForce: 10
+  minVelocity: 0.3
+  maxVelocity: 0.5
   maxForce: 3
-  timeInterval: 1
-  sphereDist: 3
-  sphereRadius: 2
+  timeInterval: 0
+  sphereDist: 5
+  sphereRadius: 2.5
 --- !u!54 &2119557735
 Rigidbody:
   m_ObjectHideFlags: 0

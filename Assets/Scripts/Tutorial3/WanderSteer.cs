@@ -60,9 +60,10 @@ public class WanderSteer : MonoBehaviour
         //dirX = Random.Range(-1f, 1f);
         //dirZ = Random.Range(-1f, 1f);
         #endregion
-        spherePos = new Vector3((transform.position.x + sphereDist), transform.position.y + 2f, transform.position.z);
-        randomPos = spherePos + (Random.insideUnitSphere * sphereRadius);
-        Debug.Log(randomPos);
+        spherePos = transform.localRotation * new Vector3(0, 0, sphereDist);
+        spherePos = transform.localPosition + spherePos;
+        randomPos = spherePos + Random.insideUnitSphere * sphereRadius;
+        Debug.Log(spherePos);
         yield return new WaitForSeconds(time);
         newWanderDirection = false;
     }
@@ -91,8 +92,8 @@ public class WanderSteer : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(spherePos, sphereRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + transform.forward * sphereDist, sphereRadius);
     }
 
     private void RotateAI()
