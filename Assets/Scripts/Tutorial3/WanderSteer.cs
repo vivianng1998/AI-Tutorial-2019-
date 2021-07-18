@@ -25,7 +25,6 @@ public class WanderSteer : MonoBehaviour
     private Vector3 spherePos;
     private Vector3 randomPos;
     private float moveVelocity;
-    //private float dirX, dirZ;
     private bool newWanderDirection;
 
     private Rigidbody rb;
@@ -56,10 +55,6 @@ public class WanderSteer : MonoBehaviour
     {
         newWanderDirection = true;
         moveVelocity = Random.Range(minVelocity, maxVelocity);
-        #region randomize facing direction (old code)
-        //dirX = Random.Range(-1f, 1f);
-        //dirZ = Random.Range(-1f, 1f);
-        #endregion
         spherePos = transform.localRotation * new Vector3(0, 0, sphereDist);
         spherePos = transform.localPosition + spherePos;
         randomPos = spherePos + Random.insideUnitSphere * sphereRadius;
@@ -71,9 +66,6 @@ public class WanderSteer : MonoBehaviour
     private void WalkForward()
     {
         anim.SetBool("walk", true);
-        #region randomize facing direction (old code)
-        //var desiredVelocity = new Vector3(dirX, 0, dirZ);
-        #endregion
         var desiredVelocity = randomPos - transform.position;
         desiredVelocity = desiredVelocity.normalized * moveVelocity;
 
