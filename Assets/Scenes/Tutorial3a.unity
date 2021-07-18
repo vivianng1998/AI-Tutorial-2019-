@@ -26016,7 +26016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_RootOrder
@@ -30298,6 +30298,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvadeMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 100066, guid: 80da0cf2901b72a47b19d320e2737dc5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 80da0cf2901b72a47b19d320e2737dc5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 109.54
@@ -30413,6 +30417,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  delayValue: 2
 --- !u!1 &1964965355
 GameObject:
   m_ObjectHideFlags: 0
@@ -32718,6 +32723,25 @@ CapsuleCollider:
   m_Height: 44.8
   m_Direction: 1
   m_Center: {x: 0, y: 21.6, z: 3}
+--- !u!114 &2119557734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119557732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ae358cc51738f4ba933b2f9e89b7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steeringForce: 100
+  minVelocity: 0.5
+  maxVelocity: 1
+  maxForce: 3
+  timeInterval: 1
+  sphereDist: 3
+  sphereRadius: 2
 --- !u!54 &2119557735
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -32747,7 +32771,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119557732}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49fc21aebdbc3ab4cb7092176dc6dee7, type: 3}
   m_Name: 
