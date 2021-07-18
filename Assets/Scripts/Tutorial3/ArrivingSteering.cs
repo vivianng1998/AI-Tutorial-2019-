@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ArrivingSteering : MonoBehaviour
 {
-    [Header("AI Movement")]
-    [SerializeField]
-    private float moveSpeed = 50f;
-    [SerializeField]
-    private float rotateSpeed = 5f;
+    [Header("Steering")]
+    public float steeringForce = 100;
+    public float maxVelocity = 2;
+    public float maxForce = 3;
+    private Vector3 velocity;
 
     [Header("Border")]
     [SerializeField]
@@ -33,9 +33,9 @@ public class ArrivingSteering : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && hasArrived)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            hasArrived = false;
+            //hasArrived = false;
             RandomizeArrivalPoint();
         }
     }
@@ -56,24 +56,33 @@ public class ArrivingSteering : MonoBehaviour
 
     private void ArriveToPoint()
     {
-        float step = moveSpeed * Time.deltaTime;
-        //rb.AddForce(transform.forward * step * forceMultiplier, ForceMode.Acceleration);
-        rb.velocity = (arrivalPoint - transform.position).normalized * step;
         anim.SetBool("walk", true);
+
+        var desiredVelocity = arrivalPoint - transform.position;
+        desiredVelocity = desiredVelocity.normalized * maxVelocity;
+
+        var steering = desiredVelocity - velocity;
+        steering = Vector3.ClampMagnitude(steering, maxForce);
+        steering.y = 0;
+        steering /= steeringForce;
+
+        velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
+        rb.velocity = velocity;
+
+        Debug.DrawRay(transform.position, steering * 50, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 5, Color.yellow);
 
         if (Vector3.Distance(transform.position, arrivalPoint) < 1f)
         {
-            anim.SetBool("walk", false);
-            rb.velocity = Vector3.zero;
-            hasArrived = true;
+            //hasArrived = true;
         }
     }
 
     private void RotateAI()
     {
-        float step = rotateSpeed * Time.deltaTime;
-        Vector3 target = arrivalPoint - transform.position;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, target, step, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDir);
+        float step = maxForce * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, velocity, step, 0.0f);
+        rb.transform.rotation = Quaternion.LookRotation(newDir);
     }
 }

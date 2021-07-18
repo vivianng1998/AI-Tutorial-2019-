@@ -6308,11 +6308,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 469070621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c9779e08ef5adc43a0a7eb06b90cbef, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a258cc5101cf6340a5b9c052e42bb5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 80
-  rotateSpeed: 5
+  steeringForce: 100
+  maxVelocity: 2
+  maxForce: 3
   borderCorner:
   - {fileID: 692759100}
   - {fileID: 1924608672}
@@ -14473,6 +14474,7 @@ MonoBehaviour:
   steeringForce: 100
   maxVelocity: 2
   maxForce: 3
+  target: {fileID: 1929613730}
 --- !u!4 &804911974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400066, guid: dcf56777c6c6fc6469501dcbc7aa5b90,
@@ -25077,7 +25079,7 @@ GameObject:
   - component: {fileID: 1362359718}
   - component: {fileID: 1362359717}
   m_Layer: 8
-  m_Name: Cube
+  m_Name: TargetTester
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29269,7 +29271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: dcf56777c6c6fc6469501dcbc7aa5b90, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: dcf56777c6c6fc6469501dcbc7aa5b90, type: 3}
       propertyPath: m_RootOrder
@@ -30118,7 +30120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1929613731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30132,7 +30134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 2
-  runningSpeed: 6
+  runningSpeed: 4
   jumpSpeed: 2.5
   gravity: 10
   playerCamera: {fileID: 602855200}
@@ -30699,16 +30701,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1997483035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f08636e83b052c1499552773cfcc77d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fae816be3069e84aa76b01ee21831fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 80
-  forceMultiplier: 50
-  rotateSpeed: 5
+  steeringForce: 100
+  maxVelocity: 3
+  maxForce: 15
   radius: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  player: {fileID: 1929613730}
 --- !u!54 &1997483038
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -32599,12 +32602,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2119557732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf1efec1abffca245aafff1bac604273, type: 3}
+  m_Script: {fileID: 11500000, guid: 49fc21aebdbc3ab4cb7092176dc6dee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 20
-  maxSpeed: 50
-  forceMultiplier: 50
+  steeringForce: 100
+  minVelocity: 0.7
+  maxVelocity: 2
+  maxForce: 3
   timeInterval: 5
 --- !u!1 &2122611530
 GameObject:

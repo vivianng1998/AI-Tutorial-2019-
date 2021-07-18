@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class FleeSteering : MonoBehaviour
 {
-    [Header("AI Movement")]
-    [SerializeField]
-    private float moveSpeed = 50f;
-    [SerializeField]
-    private float forceMultiplier = 50f;
-    [SerializeField]
-    private float rotateSpeed = 5f;
+    [Header("Steering")]
+    public float steeringForce = 100;
+    public float maxVelocity = 2;
+    public float maxForce = 3;
+    private Vector3 velocity;
 
     [Header("AI Detection")]
     [SerializeField]
@@ -19,6 +17,7 @@ public class FleeSteering : MonoBehaviour
     private LayerMask layerMask;
     private Vector3 center;
 
+    [SerializeField]
     private GameObject player;
     private Transform playerTransform;
     
@@ -27,8 +26,6 @@ public class FleeSteering : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
-
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -68,10 +65,22 @@ public class FleeSteering : MonoBehaviour
 
     private void EscapePlayer()
     {
-        float step = moveSpeed * Time.deltaTime;
-        rb.AddForce(forceMultiplier * step * transform.forward, ForceMode.Acceleration);
-        //rb.velocity = (playerTransform.position - transform.position).normalized * step;
         anim.SetBool("walk", true);
+
+        var desiredVelocity = playerTransform.position - transform.position;
+        desiredVelocity = desiredVelocity.normalized * maxVelocity;
+
+        var steering = desiredVelocity - velocity;
+        steering = Vector3.ClampMagnitude(steering, maxForce);
+        steering.y = 0;
+        steering /= steeringForce;
+
+        velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
+        rb.velocity = -velocity;
+
+        Debug.DrawRay(transform.position, steering * 50, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 5, Color.yellow);
 
         if (Vector3.Distance(transform.position, playerTransform.position) > radius)
         {
@@ -81,9 +90,8 @@ public class FleeSteering : MonoBehaviour
 
     private void RotateAI()
     {
-        float step = rotateSpeed * Time.deltaTime;
-        Vector3 target = playerTransform.position - transform.position;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, -target, step, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDir);
+        float step = maxForce * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, -velocity, step, 0.0f);
+        rb.transform.rotation = Quaternion.LookRotation(newDir);
     }
 }
