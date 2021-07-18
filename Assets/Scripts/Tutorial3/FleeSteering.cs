@@ -5,9 +5,12 @@ using UnityEngine;
 public class FleeSteering : MonoBehaviour
 {
     [Header("Steering")]
-    public float steeringForce = 100;
-    public float maxVelocity = 2;
-    public float maxForce = 3;
+    [SerializeField]
+    private float steeringForce = 100;
+    [SerializeField]
+    private float maxVelocity = 2;
+    [SerializeField]
+    private float maxForce = 3;
     private Vector3 velocity;
 
     [Header("AI Detection")]

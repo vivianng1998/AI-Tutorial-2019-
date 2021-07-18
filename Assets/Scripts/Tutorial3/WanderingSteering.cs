@@ -5,20 +5,21 @@ using UnityEngine;
 public class WanderingSteering : MonoBehaviour
 {
     [Header("Steering")]
-    public float steeringForce = 100;
-    public float minVelocity = 1;
-    public float maxVelocity = 3;
-    public float maxForce = 3;
+    [SerializeField]
+    private float steeringForce = 100;
+    [SerializeField]
+    private float minVelocity = 1;
+    [SerializeField]
+    private float maxVelocity = 3;
+    [SerializeField]
+    private float maxForce = 3;
     private Vector3 velocity;
 
     [SerializeField, Tooltip("Time interval for new wander point randomizer")]
     private float timeInterval = 5f;
     private float moveVelocity;
-    private float delta;
     private float dirX, dirZ;
     private bool newWanderDirection;
-
-    Vector3 temp;
 
     private Rigidbody rb;
     private Animator anim;
@@ -50,7 +51,6 @@ public class WanderingSteering : MonoBehaviour
         moveVelocity = Random.Range(minVelocity, maxVelocity);
         dirX = Random.Range(-1f, 1f);
         dirZ = Random.Range(-1f, 1f);
-        Debug.Log("speed " + moveVelocity + " delta " + delta);
         yield return new WaitForSeconds(time);
         newWanderDirection = false;
     }
@@ -61,8 +61,6 @@ public class WanderingSteering : MonoBehaviour
 
         var desiredVelocity = new Vector3(dirX, 0, dirZ);
         desiredVelocity = desiredVelocity.normalized * moveVelocity;
-
-        temp = desiredVelocity;//
 
         var steering = desiredVelocity - velocity;
         steering = Vector3.ClampMagnitude(steering, maxForce);

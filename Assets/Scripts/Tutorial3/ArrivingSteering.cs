@@ -5,9 +5,12 @@ using UnityEngine;
 public class ArrivingSteering : MonoBehaviour
 {
     [Header("Steering")]
-    public float steeringForce = 100;
-    public float maxVelocity = 2;
-    public float maxForce = 3;
+    [SerializeField]
+    private float steeringForce = 100;
+    [SerializeField]
+    private float maxVelocity = 2;
+    [SerializeField]
+    private float maxForce = 3;
     private Vector3 velocity;
 
     [Header("Border")]
@@ -15,7 +18,6 @@ public class ArrivingSteering : MonoBehaviour
     private Transform[] borderCorner;
 
     private Vector3 arrivalPoint;
-    private bool hasArrived;
 
     private Rigidbody rb;
     private Animator anim;
@@ -27,7 +29,6 @@ public class ArrivingSteering : MonoBehaviour
 
         anim = GetComponent<Animator>();
 
-        hasArrived = false;
         RandomizeArrivalPoint();
     }
 
@@ -35,7 +36,6 @@ public class ArrivingSteering : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //hasArrived = false;
             RandomizeArrivalPoint();
         }
     }
@@ -75,7 +75,7 @@ public class ArrivingSteering : MonoBehaviour
 
         if (Vector3.Distance(transform.position, arrivalPoint) < 1f)
         {
-            //hasArrived = true;
+            //arrived
         }
     }
 
