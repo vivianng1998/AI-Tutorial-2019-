@@ -7,7 +7,7 @@ public class SeekSteering : MonoBehaviour
 {
     [Header("Steering")]
     [SerializeField]
-    private float steeringForce = 100;
+    private float steeringForce = 10;
     [SerializeField]
     private float maxVelocity = 2;
     [SerializeField]
@@ -60,9 +60,9 @@ public class SeekSteering : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
         rb.velocity = velocity;
 
-        Debug.DrawRay(transform.position, steering * 50, Color.green);
-        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
-        Debug.DrawRay(transform.position, desiredVelocity.normalized * 5, Color.yellow);
+        Debug.DrawRay(transform.position, steering * 100, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 1, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
     }
 
     private void RotateAI()

@@ -6,7 +6,7 @@ public class WanderSteer : MonoBehaviour
 {
     [Header("Steering")]
     [SerializeField]
-    private float steeringForce = 100;
+    private float steeringForce = 10;
     [SerializeField]
     private float minVelocity = 1;
     [SerializeField]
@@ -57,7 +57,7 @@ public class WanderSteer : MonoBehaviour
         moveVelocity = Random.Range(minVelocity, maxVelocity);
         spherePos = transform.localRotation * new Vector3(0, 0, sphereDist);
         spherePos = transform.localPosition + spherePos;
-        randomPos = spherePos + Random.insideUnitSphere * sphereRadius;
+        randomPos = spherePos + Random.insideUnitSphere.normalized * sphereRadius;
         Debug.Log(spherePos);
         yield return new WaitForSeconds(time);
         newWanderDirection = false;
@@ -77,9 +77,9 @@ public class WanderSteer : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
         rb.velocity = velocity;
 
-        Debug.DrawRay(transform.position, steering * 50, Color.green);
-        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
-        Debug.DrawRay(transform.position, desiredVelocity.normalized * 5, Color.yellow);
+        Debug.DrawRay(transform.position, steering * 100, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 1, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
     }
 
     private void OnDrawGizmos()

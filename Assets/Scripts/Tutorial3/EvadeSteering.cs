@@ -7,7 +7,7 @@ public class EvadeSteering : MonoBehaviour
 {
     [Header("Steering")]
     [SerializeField]
-    private float steeringForce = 100;
+    private float steeringForce = 10;
     [SerializeField]
     private float maxVelocity = 2;
     [SerializeField]
@@ -24,12 +24,7 @@ public class EvadeSteering : MonoBehaviour
     private float radius = 2f;
     [SerializeField]
     private LayerMask layerMask;
-    private Vector3 center;
-    private bool playerInRange;
     private Vector3 target;
-    [SerializeField]
-    private float delayValue = 2;
-    private float timer;
 
     private Rigidbody rb;
     private Animator anim;
@@ -40,32 +35,22 @@ public class EvadeSteering : MonoBehaviour
         rb.freezeRotation = true;
 
         anim = GetComponent<Animator>();
-
-        timer = delayValue;
     }
 
     private void FixedUpdate()
     {
         if (player != null)
         {
-            DetectPlayer();
-            PursuePlayer();
+            EvadePlayer();
             RotateAI();
         }
     }
 
-    private void PursuePlayer()
+    private void EvadePlayer()
     {
         anim.SetBool("walk", true);
 
-        if (!playerInRange)
-        {
-            target = player.transform.position - new Vector3(predictValue, 0, predictValue);
-        }
-        else
-        {
-            target = player.transform.position;
-        }
+        target = player.transform.position + (player.transform.localRotation * new Vector3(0, 0, predictValue));
 
         var desiredVelocity = target - transform.position;
         desiredVelocity = desiredVelocity.normalized * maxVelocity;
@@ -76,60 +61,17 @@ public class EvadeSteering : MonoBehaviour
         steering /= steeringForce;
 
         velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
+        rb.velocity = -velocity;
 
-        if (!playerInRange)
-        {
-            rb.velocity = velocity;
-        }
-        else
-        {
-            rb.velocity = -velocity;
-        }
-
-        Debug.DrawRay(transform.position, steering * 50, Color.green);
-        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
-        Debug.DrawRay(transform.position, desiredVelocity.normalized * 10, Color.yellow);
-    }
-
-    private void DetectPlayer()
-    {
-        center = transform.position;
-        if (Physics.CheckSphere(center, radius, layerMask))
-        {
-            playerInRange = true;
-        }
-
-        if (playerInRange)
-        {
-            if (Vector3.Distance(transform.position, player.transform.position) > radius)
-            {
-                timer -= Time.deltaTime;
-                if (delayValue <= 0)
-                {
-                    playerInRange = false;
-                    timer = delayValue;
-                }
-            }
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(center, radius);
+        Debug.DrawRay(transform.position, steering * 100, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 1, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
     }
 
     private void RotateAI()
     {
         float step = maxForce * Time.deltaTime;
-        if (!playerInRange)
-        {
-            newDir = Vector3.RotateTowards(transform.forward, velocity, step, 0.0f);
-        }
-        else
-        {
-            newDir = Vector3.RotateTowards(transform.forward, -velocity, step, 0.0f);
-        }
+        newDir = Vector3.RotateTowards(transform.forward, -velocity, step, 0.0f);
         rb.transform.rotation = Quaternion.LookRotation(newDir);
     }
 }

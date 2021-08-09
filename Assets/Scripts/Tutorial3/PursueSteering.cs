@@ -7,7 +7,7 @@ public class PursueSteering : MonoBehaviour
 {
     [Header("Steering")]
     [SerializeField]
-    private float steeringForce = 100;
+    private float steeringForce = 10;
     [SerializeField]
     private float maxVelocity = 2;
     [SerializeField]
@@ -20,13 +20,15 @@ public class PursueSteering : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private float predictValue = 1;
-    [SerializeField]
+    [SerializeField, Tooltip("Seek player range")]
     private float radius = 2f;
     [SerializeField]
     private LayerMask layerMask;
     private Vector3 center;
     private bool playerInRange;
     private Vector3 target;
+    [SerializeField, Tooltip("Ability to seek player when in close range")]
+    private bool toggleSeek;
 
     private Rigidbody rb;
     private Animator anim;
@@ -43,7 +45,10 @@ public class PursueSteering : MonoBehaviour
     {
         if (player != null)
         {
-            DetectPlayer();
+            if (toggleSeek)
+            {
+                DetectPlayer();
+            }
             PursuePlayer();
             RotateAI();
         }
@@ -55,7 +60,16 @@ public class PursueSteering : MonoBehaviour
 
         if (!playerInRange)
         {
-            target = player.transform.position - new Vector3(predictValue, 0, predictValue);
+            if (!player.CompareTag("Player"))
+            {
+                //Tester cube with velocity
+                target = player.transform.position + (3 * predictValue * player.GetComponent<Rigidbody>().velocity);
+            }
+            else
+            {
+                target = player.transform.position + (player.transform.localRotation * new Vector3(0, 0, predictValue));
+            }
+
         }
         else
         {
@@ -64,7 +78,6 @@ public class PursueSteering : MonoBehaviour
 
         var desiredVelocity = target - transform.position;
         desiredVelocity = desiredVelocity.normalized * maxVelocity;
-
         var steering = desiredVelocity - velocity;
         steering = Vector3.ClampMagnitude(steering, maxForce);
         steering.y = 0;
@@ -73,9 +86,9 @@ public class PursueSteering : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
         rb.velocity = velocity;
 
-        Debug.DrawRay(transform.position, steering * 50, Color.green);
-        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
-        Debug.DrawRay(transform.position, desiredVelocity.normalized * 10, Color.yellow);
+        Debug.DrawRay(transform.position, steering * 100, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 1, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
     }
 
     private void DetectPlayer()
@@ -99,6 +112,8 @@ public class PursueSteering : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(center, radius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(target, 0.5f);
     }
 
     private void RotateAI()

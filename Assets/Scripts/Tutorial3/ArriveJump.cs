@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrivingSteering : MonoBehaviour
+public class ArriveJump : MonoBehaviour, IJump
 {
     [Header("Steering")]
     [SerializeField]
@@ -18,11 +18,8 @@ public class ArrivingSteering : MonoBehaviour
     [SerializeField]
     private float maxDrag = 30f;
 
-    [Header("Border")]
     [SerializeField]
-    private Transform[] borderCorner;
-
-    private Vector3 arrivalPoint;
+    private Transform destination;
 
     private Rigidbody rb;
     private Animator anim;
@@ -34,16 +31,6 @@ public class ArrivingSteering : MonoBehaviour
         initialDrag = rb.drag;
 
         anim = GetComponent<Animator>();
-
-        RandomizeArrivalPoint();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RandomizeArrivalPoint();
-        }
     }
 
     private void FixedUpdate()
@@ -52,20 +39,11 @@ public class ArrivingSteering : MonoBehaviour
         RotateAI();
     }
 
-    private void RandomizeArrivalPoint()
-    {
-        float posX = Random.Range(borderCorner[0].position.x, borderCorner[1].position.x);
-        float posZ = Random.Range(borderCorner[0].position.z, borderCorner[1].position.z);
-        arrivalPoint = new Vector3(posX, transform.position.y, posZ);
-        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), new Vector3(arrivalPoint.x, arrivalPoint.y, arrivalPoint.z), Quaternion.identity);
-        Debug.Log(arrivalPoint);
-    }
-
     private void ArriveToPoint()
     {
         anim.SetBool("walk", true);
 
-        var desiredVelocity = arrivalPoint - transform.position;
+        var desiredVelocity = destination.position - transform.position;
         desiredVelocity = desiredVelocity.normalized * maxVelocity;
 
         var steering = desiredVelocity - velocity;
@@ -74,19 +52,22 @@ public class ArrivingSteering : MonoBehaviour
         steering /= steeringForce;
 
         velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
-        rb.velocity = velocity;
+        //rb.velocity = velocity;
+
+        Vector3 adjustedVelocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
+        rb.velocity = adjustedVelocity;
 
         Debug.DrawRay(transform.position, steering * 100, Color.green);
         Debug.DrawRay(transform.position, velocity.normalized * 1, Color.cyan);
         Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
 
-        if (Vector3.Distance(transform.position, arrivalPoint) < 1f)
+        if (Vector3.Distance(transform.position, destination.position) < 1f)
         {
             anim.SetBool("walk", false);
             rb.velocity = Vector3.zero;
             rb.drag = initialDrag;
         }
-        else if (Vector3.Distance(transform.position, arrivalPoint) < 7f)
+        else if (Vector3.Distance(transform.position, destination.position) < 5f)
         {
             if (rb.drag < maxDrag)
             {
@@ -97,7 +78,7 @@ public class ArrivingSteering : MonoBehaviour
                 rb.drag = maxDrag;
             }
         }
-        
+
     }
 
     private void RotateAI()
@@ -105,5 +86,14 @@ public class ArrivingSteering : MonoBehaviour
         float step = maxForce * Time.deltaTime;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, velocity, step, 0.0f);
         rb.transform.rotation = Quaternion.LookRotation(newDir);
+    }
+
+    public void Jump(float speedReq ,Vector3 direction)
+    {
+        if (rb.velocity.magnitude > speedReq)
+        {
+            anim.SetTrigger("jump");
+            rb.AddForce(direction, ForceMode.Impulse);
+        }
     }
 }

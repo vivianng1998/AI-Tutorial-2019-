@@ -70,9 +70,9 @@ public class WanderingSteering : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity + steering, maxVelocity); //resultant velocity
         rb.velocity = velocity;
 
-        Debug.DrawRay(transform.position, steering * 50, Color.green);
-        Debug.DrawRay(transform.position, velocity.normalized * 5, Color.cyan);
-        Debug.DrawRay(transform.position, desiredVelocity.normalized * 5, Color.yellow);
+        Debug.DrawRay(transform.position, steering * 100, Color.green);
+        Debug.DrawRay(transform.position, velocity.normalized * 1, Color.cyan);
+        Debug.DrawRay(transform.position, desiredVelocity.normalized * 2, Color.magenta);
     }
 
     private void RotateAI()

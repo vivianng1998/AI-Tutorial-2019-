@@ -31107,10 +31107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steeringForce: 100
-  maxVelocity: 0.5
+  maxVelocity: 2
   maxForce: 3
   player: {fileID: 1929613730}
-  predictValue: 1
+  predictValue: -3
   radius: 2
   layerMask:
     serializedVersion: 2
@@ -33121,7 +33121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steeringForce: 100
-  maxVelocity: 4
+  maxVelocity: 2
   maxForce: 3
   player: {fileID: 1929613730}
   predictValue: 1
@@ -33434,7 +33434,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119557732}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ae358cc51738f4ba933b2f9e89b7a3, type: 3}
   m_Name: 
@@ -33475,7 +33475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119557732}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49fc21aebdbc3ab4cb7092176dc6dee7, type: 3}
   m_Name: 
@@ -33484,7 +33484,7 @@ MonoBehaviour:
   minVelocity: 0.7
   maxVelocity: 2
   maxForce: 3
-  timeInterval: 0
+  timeInterval: 5
 --- !u!1 &2122611530
 GameObject:
   m_ObjectHideFlags: 0
