@@ -7,7 +7,6 @@ public class T6Thief : MonoBehaviour
 {
     private enum ThiefState
     {
-        IDLE,
         STEAL,
         FLEE,
         HIDE
