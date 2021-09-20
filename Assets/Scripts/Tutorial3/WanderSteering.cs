@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WanderSteer : MonoBehaviour
+public class WanderSteering : MonoBehaviour
 {
     [Header("Steering")]
     [SerializeField]

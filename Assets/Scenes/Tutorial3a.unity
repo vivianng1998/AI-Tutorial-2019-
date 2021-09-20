@@ -620,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 3de438e70702ebf428d028c739828f43, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3de438e70702ebf428d028c739828f43, type: 3}
       propertyPath: m_RootOrder
@@ -6320,6 +6320,8 @@ MonoBehaviour:
   steeringForce: 100
   maxVelocity: 2
   maxForce: 3
+  slowdownRate: 0.1
+  maxDrag: 30
   borderCorner:
   - {fileID: 692759100}
   - {fileID: 1924608672}
@@ -17330,7 +17332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: d9b4f1437b749dc43bb121e0b4726e21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: d9b4f1437b749dc43bb121e0b4726e21, type: 3}
       propertyPath: m_RootOrder
@@ -24015,7 +24017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 98976c6360cf0ef42bc60d4aa956e765, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 98976c6360cf0ef42bc60d4aa956e765, type: 3}
       propertyPath: m_RootOrder
@@ -26408,7 +26410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 466da1a3966b8d04fa7b380a6a520a6b, type: 3}
       propertyPath: m_RootOrder
@@ -30994,7 +30996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 80da0cf2901b72a47b19d320e2737dc5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 80da0cf2901b72a47b19d320e2737dc5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31107,15 +31109,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steeringForce: 100
-  maxVelocity: 0.5
+  maxVelocity: 2
   maxForce: 3
   player: {fileID: 1929613730}
-  predictValue: 1
+  predictValue: -3
   radius: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  delayValue: 2
 --- !u!4 &1960585980 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400066, guid: 80da0cf2901b72a47b19d320e2737dc5,
@@ -33121,7 +33122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steeringForce: 100
-  maxVelocity: 4
+  maxVelocity: 2
   maxForce: 3
   player: {fileID: 1929613730}
   predictValue: 1
@@ -33129,6 +33130,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  toggleSeek: 0
 --- !u!1 &2111524549
 GameObject:
   m_ObjectHideFlags: 0
@@ -33434,7 +33436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119557732}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ae358cc51738f4ba933b2f9e89b7a3, type: 3}
   m_Name: 
@@ -33468,23 +33470,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1476946040}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2119557737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119557732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49fc21aebdbc3ab4cb7092176dc6dee7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  steeringForce: 100
-  minVelocity: 0.7
-  maxVelocity: 2
-  maxForce: 3
-  timeInterval: 0
 --- !u!1 &2122611530
 GameObject:
   m_ObjectHideFlags: 0
